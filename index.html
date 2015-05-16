@@ -7,6 +7,12 @@
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/index.css">
+    <audio id="success">
+        <source src="res/success.wav" type="audio/wav">
+    </audio>
+    <audio id="fail">
+        <source src="res/fail.wav" type="audio/wav">
+    </audio>
     <script>
 
         var fullScore      = 59;
@@ -91,9 +97,12 @@
             adjacentCell.addClass("clicked");
 
             if (color == successColor) {
+                $("#success").get(0).play();
                 currentScore += 1;
             }
             else {
+                $(".flexbox-align").effect("shake", {direction: "up", distance: 5});
+                $("#fail").get(0).play();
                 currentMistake += 1;
             }
 
