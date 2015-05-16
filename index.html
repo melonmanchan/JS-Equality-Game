@@ -15,6 +15,9 @@
         var currentScore   = 0;
         var currentMistake = 0;
 
+        var errorColor     = '#e74c3c';
+        var successColor   = '#2ecc71';
+
         $(document).ready(function() {
 
             $('td:not(.clicked)').hover(
@@ -22,7 +25,8 @@
                     function() {
                         // Hover begin
                         if ($(this).hasClass("clicked") == false) {
-                            $(this).animate({backgroundColor: '#7f8c8d'}, 200);
+
+                            animateCellColorChange($(this), "#7f8c8d");
 
                             var headers = getCellHeaders($(this));
 
@@ -34,7 +38,7 @@
                         //Hover leave
                         if ($(this).hasClass("clicked") == false) {
 
-                            $(this).animate({backgroundColor: '#fff'}, 200);
+                            animateCellColorChange($(this), "#fff");
 
                             var headers = getCellHeaders($(this));
 
@@ -50,43 +54,73 @@
                     var headers = getCellHeaders($(this));
 
                     if (testForEquivalence(headers.leftHeader.innerHTML, headers.topHeader.innerHTML)) {
-                        currentScore += 1;
-
-                        $(this).animate({backgroundColor: '#2ecc71'}, 200);
+                        handleCellClickColorChange($(this), successColor);
 
                     }
                     else {
-                        currentMistake += 1;
-                        $(this).animate({backgroundColor: '#e74c3c'}, 200);
-
+                        handleCellClickColorChange($(this), errorColor);
                     }
+
                     $(headers.topHeader).css("color", "");
                     $(headers.leftHeader).css("color", "");
 
-                    $(this).addClass("clicked");
                 }
 
-                if (currentScore >= 59)
+                if (currentScore >= 37)
                 {
                     alert("What the hell? You won!");
                 }
 
                 else if (currentMistake >= 3)
                 {
-                    alert("You lost! Too bad");
+                    alert("You lost! Too bad...");
                     location.reload();
                 }
             });
         });
 
-        function getCellHeaders(cell) {
-            var col = $(cell).parent().children().index($(cell));
-            var row = $(cell).parent().parent().children().index($(cell).parent());
+        function handleCellClickColorChange(cell, color) {
 
-            var topHeader = document.getElementById("gameTable").rows[0].cells[col];
-            var leftHeader =  document.getElementById("gameTable").rows[row].cells[0];
+            var currentCellPos = getCellCoordinates(cell);
+            animateCellColorChange(cell, color);
+            cell.addClass("clicked");
+
+
+            var adjacentCell = $(document.getElementById("gameTable").rows[currentCellPos.column].cells[currentCellPos.row]);
+            animateCellColorChange(adjacentCell, color);
+            adjacentCell.addClass("clicked");
+
+            if (color == successColor) {
+                currentScore += 1;
+            }
+            else {
+                currentMistake += 1;
+            }
+
+            console.log(currentScore + "|" + currentMistake);
+        }
+
+        function animateCellColorChange(cell, color) {
+
+            cell.animate({backgroundColor: color}, 200);
+
+        }
+
+        function getCellHeaders(cell) {
+
+            currentCoordinates = getCellCoordinates(cell);
+
+            var topHeader = document.getElementById("gameTable").rows[0].cells[currentCoordinates.column];
+            var leftHeader =  document.getElementById("gameTable").rows[currentCoordinates.row].cells[0];
 
             return {topHeader: topHeader, leftHeader: leftHeader};
+        }
+
+        function getCellCoordinates(cell) {
+            var col = cell.parent().children().index(cell);
+            var row = cell.parent().parent().children().index(cell.parent());
+
+            return {column:col, row:row};
         }
 
         function testForEquivalence(operator1, operator2) {
