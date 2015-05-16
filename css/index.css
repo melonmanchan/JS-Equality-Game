@@ -53,6 +53,12 @@ th {
     padding-bottom: 10px;
 }
 
+
+/* Webkit-based browsers have janky ways of forcing table widhts to be whatever */
+.crap-chrome-td-fix {
+    width: 45px
+}
+
 h3, h4 {
     text-align: right;
 }
