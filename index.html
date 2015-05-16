@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <audio id="success" preload="auto">
         <source src="res/success.wav" type="audio/wav">
@@ -103,11 +104,18 @@
             if (color == successColor) {
                 $("#success").get(0).play();
                 currentScore += 1;
+                cell.html('<i class="fa fa-fw fa-check"></i>');
+                adjacentCell.html('<i class="fa fa-fw fa-check"></i>');
             }
             else {
                 $(".flexbox-align").effect("shake", {direction: "up", distance: 5});
                 $("#fail").get(0).play();
                 currentMistake += 1;
+                cell.html('<i class="fa fa-fw fa-times"></i>');
+                adjacentCell.html('<i class="fa fa-fw fa-times"></i>');
+
+
+
             }
 
             console.log(currentScore + "|" + currentMistake);
@@ -145,7 +153,7 @@
 <div class="flexbox-align">
             <div>
                     <table id="gameTable">
-                       <tr><th></th> <th>true</th> <th>false</th> <th class="crap-chrome-td-fix">1</th> <th class="crap-chrome-td-fix">0</th> <th>-1</th> <th>"true"</th> <th>"false"</th> <th>"1"</th> <th>"0"</th> <th>"-1"</th> <th>""</th> <th>null</th> <th>undefined</th> <th>Infinity</th> <th>-Infinity</th> <th>[]</th> <th>{}</th> <th>[[]]</th> <th>[0]</th> <th>[1]</th> <th>NaN</th> </tr>
+                       <tr><th></th> <th>true</th> <th>false</th> <th>1</th> <th>0</th> <th>-1</th> <th>"true"</th> <th>"false"</th> <th>"1"</th> <th>"0"</th> <th>"-1"</th> <th>""</th> <th>null</th> <th>undefined</th> <th>Infinity</th> <th>-Infinity</th> <th>[]</th> <th>{}</th> <th>[[]]</th> <th>[0]</th> <th>[1]</th> <th>NaN</th> </tr>
                         <tr> <th>true</th> </th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
                         <tr> <th>false</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
                         <tr><th>1</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
