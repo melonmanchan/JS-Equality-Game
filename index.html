@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>loljs</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script>
+
+        $(document).ready(function() {
+
+            $('td:not(.clicked)').hover(
+
+                    function() {
+                        // Hover begin
+                        if ($(this).hasClass("clicked") == false) {
+                            $(this).animate({backgroundColor: '#7f8c8d'}, 200);
+
+                            var headers = getCellHeaders($(this));
+
+                            $(headers.topHeader).css("color", "#7f8c8d");
+                            $(headers.leftHeader).css("color", "#7f8c8d");
+                        }
+
+                    }, function() {
+                        //Hover leave
+                        if ($(this).hasClass("clicked") == false) {
+
+                            $(this).animate({backgroundColor: '#fff'}, 200);
+
+                            var headers = getCellHeaders($(this));
+
+                            $(headers.topHeader).css("color", "");
+                            $(headers.leftHeader).css("color", "");
+                        }
+                    }
+            );
+
+            $('td:not(.clicked)').click(function(){
+                if ($(this).hasClass("clicked") == false) {
+
+                    var headers = getCellHeaders($(this));
+
+                    if (testForEquivalence(headers.leftHeader.innerHTML, headers.topHeader.innerHTML)) {
+                        $(this).animate({backgroundColor: '#2ecc71'}, 200);
+                    }
+                    else {
+                        $(this).animate({backgroundColor: '#e74c3c'}, 200);
+                    }
+                    $(headers.topHeader).css("color", "");
+                    $(headers.leftHeader).css("color", "");
+
+                    $(this).addClass("clicked");
+                }
+            });
+        });
+
+        function getCellHeaders(cell) {
+            var col = $(cell).parent().children().index($(cell));
+            var row = $(cell).parent().parent().children().index($(cell).parent());
+
+            var topHeader = document.getElementById("gameTable").rows[0].cells[col];
+            var leftHeader =  document.getElementById("gameTable").rows[row].cells[0];
+
+            return {topHeader: topHeader, leftHeader: leftHeader};
+        }
+
+        function testForEquivalence(operator1, operator2) {
+            return (eval(operator1) == eval(operator2));
+        }
+    </script>
+</head>
+<body>
+<div class="flexbox-align">
+    <div>
+            <table id="gameTable">
+               <tr><th></th> <th>true</th> <th>false</th> <th>1</th> <th>0</th> <th>-1</th> <th>"true"</th> <th>"false"</th> <th>"1"</th> <th>"0"</th> <th>"-1"</th> <th>""</th> <th>null</th> <th>undefined</th> <th>Infinity</th> <th>-Infinity</th> <th>[]</th> <th>{}</th> <th>[[]]</th> <th>[0]</th> <th>[1]</th> <th>NaN</th> </tr>
+                <tr> <th>true</th> </th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>false</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>1</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>0</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>-1</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>"true"</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>"false"</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>"1"</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>"0"</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>"-1"</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>""</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>null</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>undefined</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>Infinity</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>-Infinity</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>[]</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>{}</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>[[]]</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>[0]</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr> <th>[1]</th> <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+                <tr><th>NaN</th>  <td></td>  <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> </tr>
+            </table>
+             <h3>JS equivalence game (click cells you think would evaluate to true!)</h3>
+        </div>
+</div>
+</body>
+</html>
