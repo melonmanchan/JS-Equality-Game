@@ -7,6 +7,7 @@
 
 table {
     table-layout: fixed;
+    padding-top: 80px;
 }
 
 td {
@@ -30,7 +31,10 @@ td:hover {
 }
 
 th {
-    width: 30px;
+    white-space: nowrap;
+
+    text-align: right;
+    width: 35px;
     height: 30px;
     max-width: 90px;
     max-height: 30px;
@@ -38,13 +42,13 @@ th {
 }
 
 #gameTable tr:first-child th{
+    text-align: left;
     white-space: nowrap;
     transform-origin: 50% 50%;
-    transform: rotate(90deg);
-    height: 140px;
-    width: 30px;
-    max-height: 90px;
+    transform: rotate(-90deg);
     max-width: 30px;
+    max-height: 90px;
+    padding-bottom: 10px;
 }
 
 h3, h4 {
