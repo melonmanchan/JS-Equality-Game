@@ -25,6 +25,10 @@ td:hover {
 
 }
 
+.clicked:hover {
+    cursor: default;
+}
+
 th {
     width: 30px;
     height: 30px;
@@ -43,7 +47,7 @@ th {
     max-width: 30px;
 }
 
-h3 {
+h3, h4 {
     text-align: right;
 }
 
